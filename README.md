@@ -3,8 +3,7 @@ To use:-
 
 in terminal:
 
-npm install
-
-nodemon app
+1. npm install
+2.nodemon app
 
 in browser open: http://localhost:4000
