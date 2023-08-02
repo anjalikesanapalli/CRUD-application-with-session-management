@@ -1,0 +1,78 @@
+<!-- update-info.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update User Information</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+  <h1>Update User Information</h1>
+  <form id="updateForm" onsubmit="updateData(event)" >
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="<%= info.name %>">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" style="width: 500px;padding: 8px;margin-bottom: 10px;border: 1px solid #ddd;border-radius: 5px;" value="<%= info.email %>">
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" value="<%= info.phoneNumber %>">
+
+    <label for="notes">Notes:</label>
+    <textarea id="notes" name="notes"><%= info.notes %></textarea>
+<br>
+    <button type="submit" >Update</button>
+  </form>
+
+<script>
+    const currentUrl = window.location.href;
+    console.log(currentUrl); 
+    const l1 = currentUrl.split('/');
+    const infoId = l1[4];
+    const apiEndpoint = `/update-info/${infoId}`;
+    function updateData(event) {
+      event.preventDefault(); 
+  
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      const notes = document.getElementById('notes').value;
+  
+      const data = {
+        name: name,
+        email: email,
+        phoneNumber: phoneNumber,
+        notes: notes,
+      };
+  
+      console.log(data)
+  
+      fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+         
+          if (response.ok) {
+            
+            window.location.href = '/dashboard';
+          } else {
+            
+            console.error('Error updating data:', response.statusText);
+          }
+        })
+        .catch((error) => {
+          console.error('Error updating data:', error);
+        });
+    }
+  </script>
+
+  
+</body>
+
+</html>

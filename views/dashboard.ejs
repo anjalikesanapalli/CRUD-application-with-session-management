@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" type="text/css"  href="/styles.css">
+</head>
+<body>
+  <h1>Welcome, <%= user.username %>!</h1>
+  <button><a href="/logout">Logout</a></button>
+  <br>
+  <h2>User Information</h2>
+  <button> <a href="/add-user" >Add User</a></button>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Notes</th>
+      <th>Actions</th>
+    </tr>
+    <% for (let info of infoList) { %>
+      <tr>
+        
+        <td><%= info.name %></td>
+        <td><%= info.email %></td>
+        <td><%= info.phoneNumber %></td>
+        <td><%= info.notes %></td>
+        <td>
+            <div class="container">
+         <button class="update"> <a href="/update-info/<%= info._id %>" >Update</a></button>
+
+          <form method="post" action="/delete-info/<%= info._id %>">
+            <button id="delete" type="submit" style="background-color: rgb(142, 7, 7); margin-top: 20px;">Delete</button>
+          </form>
+        </div>
+        </td>
+      </tr>
+    <% } %>
+  </table>
+  <br>
+  
+</body>
+</html>
